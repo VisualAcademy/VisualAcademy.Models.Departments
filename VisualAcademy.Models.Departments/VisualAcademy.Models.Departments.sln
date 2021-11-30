@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualAcademy.Models.Departments", "VisualAcademy.Models.Departments\VisualAcademy.Models.Departments.csproj", "{B8BC7640-E388-4628-9C9C-1150586D52C3}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "VisualAcademy.SqlServer", "VisualAcademy.SqlServer\VisualAcademy.SqlServer.sqlproj", "{14BCFC28-DDFD-4067-A3C1-6528423587DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{B8BC7640-E388-4628-9C9C-1150586D52C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8BC7640-E388-4628-9C9C-1150586D52C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8BC7640-E388-4628-9C9C-1150586D52C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14BCFC28-DDFD-4067-A3C1-6528423587DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14BCFC28-DDFD-4067-A3C1-6528423587DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14BCFC28-DDFD-4067-A3C1-6528423587DF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{14BCFC28-DDFD-4067-A3C1-6528423587DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14BCFC28-DDFD-4067-A3C1-6528423587DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14BCFC28-DDFD-4067-A3C1-6528423587DF}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
