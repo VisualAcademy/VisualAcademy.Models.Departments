@@ -310,13 +310,7 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][15] 리스트(페이징, 검색, 정렬)
-        public async Task<ArticleSet<DepartmentModel, int>> GetArticlesAsync<TParentIdentifier>(
-            int pageIndex,
-            int pageSize,
-            string searchField,
-            string searchQuery,
-            string sortOrder,
-            TParentIdentifier parentIdentifier)
+        public async Task<ArticleSet<DepartmentModel, int>> GetAllAsync<TParentIdentifier>(int pageIndex, int pageSize, string searchField, string searchQuery, string sortOrder, TParentIdentifier parentIdentifier)
         {
             var items = _context.Departments.AsQueryable();
 
@@ -385,6 +379,17 @@ namespace VisualAcademy.Models.Departments
             items = items.Skip(pageIndex * pageSize).Take(pageSize).AsNoTracking();
 
             return new ArticleSet<DepartmentModel, int>(await items.AsNoTracking().ToListAsync(), totalCount);
+        }
+
+        public async Task<ArticleSet<DepartmentModel, int>> GetArticlesAsync<TParentIdentifier>(
+            int pageIndex,
+            int pageSize,
+            string searchField,
+            string searchQuery,
+            string sortOrder,
+            TParentIdentifier parentIdentifier)
+        {
+            return await GetAllAsync(pageIndex, pageSize, searchField, searchQuery, sortOrder, parentIdentifier);
         }
 
         //[4][16] 답변: ReplyApp
