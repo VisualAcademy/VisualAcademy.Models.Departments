@@ -19,6 +19,9 @@ namespace VisualAcademy.Models.Departments
 
         public string? CreatedBy { get; set; }
 
+        /// <summary>
+        /// 부서명 
+        /// </summary>
         public string? Name { get; set; }
     }
 }

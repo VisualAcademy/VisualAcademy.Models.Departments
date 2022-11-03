@@ -5,5 +5,5 @@ CREATE TABLE [dbo].[VisualAcademyDepartments]
     [Active]    BIT                DEFAULT ((1)) NOT NULL,
     [CreatedAt] DATETIMEOFFSET (7) NOT NULL,
     [CreatedBy] NVARCHAR (70)      NULL,
-    [Name]      NVARCHAR (MAX)     NULL
+    [Name]      NVARCHAR (MAX)     NULL                                     -- 부서명
 );
