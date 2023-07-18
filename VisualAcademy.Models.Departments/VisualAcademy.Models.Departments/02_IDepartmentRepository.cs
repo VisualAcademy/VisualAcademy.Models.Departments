@@ -5,47 +5,70 @@ namespace VisualAcademy.Models.Departments
 {
     public interface IDepartmentCrudRepository<T> : ICrudRepositoryBase<DepartmentModel, long>
     {
-        Task<bool> EditAsync(T model); // 수정
+        /// <summary>
+        /// 모델 수정
+        /// </summary>
+        Task<bool> EditAsync(T model);
+
+        /// <summary>
+        /// 기본 답변 추가
+        /// </summary>
         Task<T> AddAsync(
             T model,
             int parentRef,
             int parentStep,
-            int parentRefOrder); // 답변(기본: ReplyApp)
+            int parentRefOrder);
+
+        /// <summary>
+        /// 고급 답변 추가
+        /// </summary>
         Task<T> AddAsync(
             T model,
-            int parentId); // 답변(고급: DepartmentApp)
+            int parentId);
 
-        // 페이징
+        /// <summary>
+        /// 페이징을 통한 전체 조회
+        /// </summary>
         Task<PagingResult<T>> GetAllAsync(
             int pageIndex,
             int pageSize);
 
-        // 부모 Id
+        /// <summary>
+        /// 부모 Id에 의한 페이징 전체 조회
+        /// </summary>
         Task<PagingResult<T>> GetAllByParentIdAsync(
             int pageIndex,
             int pageSize,
             int parentId);
 
-        // 부모 Key
+        /// <summary>
+        /// 부모 Key에 의한 페이징 전체 조회
+        /// </summary>
         Task<PagingResult<T>> GetAllByParentKeyAsync(
             int pageIndex,
             int pageSize,
             string parentKey);
 
-        // 검색
+        /// <summary>
+        /// 페이징을 통한 검색 조회
+        /// </summary>
         Task<PagingResult<T>> SearchAllAsync(
             int pageIndex,
             int pageSize,
             string searchQuery);
 
-        // 검색 + 부모 Id
+        /// <summary>
+        /// 부모 Id에 의한 페이징 검색 조회
+        /// </summary>
         Task<PagingResult<T>> SearchAllByParentIdAsync(
             int pageIndex,
             int pageSize,
             string searchQuery,
             int parentId);
 
-        // 검색 + 부모 Key
+        /// <summary>
+        /// 부모 Key에 의한 페이징 검색 조회
+        /// </summary>
         Task<PagingResult<T>> SearchAllByParentKeyAsync(
             int pageIndex,
             int pageSize,
@@ -55,10 +78,26 @@ namespace VisualAcademy.Models.Departments
 
     public interface IDepartmentRepository : IDepartmentCrudRepository<DepartmentModel>
     {
+        /// <summary>
+        /// 필터링 옵션에 따른 조회
+        /// </summary>
         Task<ArticleSet<DepartmentModel, long>> GetByAsync<TParentIdentifier>(FilterOptions<TParentIdentifier> options);
+
+        /// <summary>
+        /// 부모 Id에 따른 상태 조회
+        /// </summary>
         Task<Tuple<int, int>> GetStatus(int parentId);
+
+        /// <summary>
+        /// 부모 Id에 의한 전체 삭제
+        /// </summary>
         Task<bool> DeleteAllByParentId(int parentId);
+
+        /// <summary>
+        /// 월별 생성 수 조회
+        /// </summary>
         Task<SortedList<int, double>> GetMonthlyCreateCountAsync();
+
         // 강의 이외에 추가적인 API가 필요하다면 이곳에 기록(예를 들어, 시작일부터 종료일까지의 데이터 검색)
         // ...
     }
