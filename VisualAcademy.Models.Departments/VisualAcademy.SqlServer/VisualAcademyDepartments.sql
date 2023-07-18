@@ -1,4 +1,4 @@
-﻿--[0][0] 부서
+﻿--[0][0] 부서: Departments 
 CREATE TABLE [dbo].[VisualAcademyDepartments]
 (
     [Id]        BIGINT             IDENTITY (1, 1) NOT NULL Primary Key,    -- 부서 고유 아이디, 자동 증가
