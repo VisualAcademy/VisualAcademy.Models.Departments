@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace VisualAcademy.Models.Departments
 {
     /// <summary>
-    /// [1][1] 테이블과 일대일로 매핑되는 모델 클래스
+    /// [1][1] 테이블과 일대일로 매핑되는 모델 클래스: Department, DepartmentModel, ...
     /// </summary>
     [Table("VisualAcademyDepartments")]
     public class DepartmentModel
