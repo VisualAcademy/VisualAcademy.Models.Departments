@@ -59,6 +59,6 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="VisualAcademyDepartments.sql" />
+    <Build Include="00_VisualAcademyDepartments.sql" />
   </ItemGroup>
 </Project>
