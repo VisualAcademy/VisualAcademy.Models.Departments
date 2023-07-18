@@ -5,11 +5,17 @@ using Microsoft.Extensions.Logging;
 
 namespace VisualAcademy.Models.Departments
 {
+    /// <summary>
+    /// DepartmentRepository는 IDepartmentRepository와 IDisposable 인터페이스를 구현하는 클래스입니다.
+    /// </summary>
     public class DepartmentRepository : IDepartmentRepository, IDisposable
     {
         private readonly DepartmentAppDbContext _context;
         private readonly ILogger _logger;
 
+        /// <summary>
+        /// DepartmentRepository 생성자는 DB Context와 Logger를 주입받습니다.
+        /// </summary>
         public DepartmentRepository(DepartmentAppDbContext context, ILoggerFactory loggerFactory)
         {
             this._context = context;
@@ -18,6 +24,9 @@ namespace VisualAcademy.Models.Departments
 
         #region [4][1] 입력: AddAsync
         //[4][1] 입력: AddAsync
+        /// <summary>
+        /// AddAsync 메서드는 신규 DepartmentModel 인스턴스를 데이터베이스에 추가합니다.
+        /// </summary>
         public async Task<DepartmentModel> AddAsync(DepartmentModel model)
         {
             model.CreatedAt = DateTime.UtcNow;
@@ -38,6 +47,9 @@ namespace VisualAcademy.Models.Departments
 
         #region [4][2] 출력: GetAllAsync
         //[4][2] 출력: GetAllAsync
+        /// <summary>
+        /// GetAllAsync 메서드는 모든 DepartmentModel 인스턴스를 데이터베이스에서 가져옵니다.
+        /// </summary>
         public async Task<List<DepartmentModel>> GetAllAsync()
         {
             return await _context.Departments.OrderByDescending(m => m.Id).ToListAsync();
@@ -46,6 +58,9 @@ namespace VisualAcademy.Models.Departments
 
         #region [4][3] 상세: GetByIdAsync
         //[4][3] 상세: GetByIdAsync
+        /// <summary>
+        /// GetByIdAsync 메서드는 주어진 Id에 해당하는 DepartmentModel 인스턴스를 데이터베이스에서 가져옵니다.
+        /// </summary>
         public async Task<DepartmentModel> GetByIdAsync(long id)
         {
             var model = await _context.Departments.SingleOrDefaultAsync(m => m.Id == id);
@@ -56,6 +71,9 @@ namespace VisualAcademy.Models.Departments
 
         #region [4][4] 수정: UpdateAsync
         //[4][4] 수정: UpdateAsync
+        /// <summary>
+        /// EditAsync 메서드는 주어진 DepartmentModel 인스턴스의 변경사항을 데이터베이스에 반영합니다.
+        /// </summary>
         public async Task<bool> EditAsync(DepartmentModel model)
         {
             try
@@ -71,6 +89,10 @@ namespace VisualAcademy.Models.Departments
 
             return false;
         }
+
+        /// <summary>
+        /// UpdateAsync 메서드는 주어진 DepartmentModel 인스턴스의 변경사항을 데이터베이스에 반영합니다.
+        /// </summary>
         public async Task<bool> UpdateAsync(DepartmentModel model)
         {
             try
@@ -94,6 +116,11 @@ namespace VisualAcademy.Models.Departments
 
         #region [4][5] 삭제: DeleteAsync
         //[4][5] 삭제
+        /// <summary>
+        /// 지정된 ID를 가진 Department를 삭제합니다.
+        /// </summary>
+        /// <param name="id">삭제할 Department의 ID</param>
+        /// <returns>작업 성공 여부</returns>
         public async Task<bool> DeleteAsync(long id)
         {
             try
@@ -113,6 +140,12 @@ namespace VisualAcademy.Models.Departments
 
         #region [4][6] 페이징: GetAllAsync()
         //[4][6] 페이징: GetAllAsync()
+        /// <summary>
+        /// 모든 Department를 페이지 단위로 반환합니다.
+        /// </summary>
+        /// <param name="pageIndex">반환할 페이지 인덱스</param>
+        /// <param name="pageSize">페이지 당 반환할 개수</param>
+        /// <returns>페이지 결과</returns>
         public async Task<PagingResult<DepartmentModel>> GetAllAsync(int pageIndex, int pageSize)
         {
             var totalRecords = await _context.Departments.CountAsync();
@@ -127,6 +160,13 @@ namespace VisualAcademy.Models.Departments
         #endregion
 
         //[4][7] 부모
+        /// <summary>
+        /// 지정된 부모 ID를 가진 Department를 페이지 단위로 반환합니다.
+        /// </summary>
+        /// <param name="pageIndex">반환할 페이지 인덱스</param>
+        /// <param name="pageSize">페이지 당 반환할 개수</param>
+        /// <param name="parentId">부모 ID</param>
+        /// <returns>페이지 결과</returns>
         public async Task<PagingResult<DepartmentModel>> GetAllByParentIdAsync(
             int pageIndex,
             int pageSize,
@@ -146,6 +186,11 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][8] 상태
+        /// <summary>
+        /// 지정된 부모 ID를 가진 Department의 상태를 반환합니다.
+        /// </summary>
+        /// <param name="parentId">부모 ID</param>
+        /// <returns>고정된 기록과 전체 기록의 수</returns>
         public async Task<Tuple<int, int>> GetStatus(int parentId)
         {
             var totalRecords = await _context.Departments
@@ -159,6 +204,11 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][9] 부모 삭제
+        /// <summary>
+        /// 지정된 부모 ID를 가진 모든 Department를 삭제합니다.
+        /// </summary>
+        /// <param name="parentId">부모 ID</param>
+        /// <returns>작업 성공 여부</returns>
         public async Task<bool> DeleteAllByParentId(int parentId)
         {
             try
@@ -184,6 +234,13 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][10] 검색
+        /// <summary>
+        /// 주어진 쿼리로 Department를 검색하고, 그 결과를 페이지 단위로 반환합니다.
+        /// </summary>
+        /// <param name="pageIndex">반환할 페이지 인덱스</param>
+        /// <param name="pageSize">페이지 당 반환할 개수</param>
+        /// <param name="searchQuery">검색 쿼리</param>
+        /// <returns>페이지 결과</returns>
         public async Task<PagingResult<DepartmentModel>> SearchAllAsync(
             int pageIndex,
             int pageSize,
@@ -209,6 +266,14 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][11] 부모 검색
+        /// <summary>
+        /// 주어진 쿼리로 지정된 부모 ID를 가진 Department를 검색하고, 그 결과를 페이지 단위로 반환합니다.
+        /// </summary>
+        /// <param name="pageIndex">반환할 페이지 인덱스</param>
+        /// <param name="pageSize">페이지 당 반환할 개수</param>
+        /// <param name="searchQuery">검색 쿼리</param>
+        /// <param name="parentId">부모 ID</param>
+        /// <returns>페이지 결과</returns>
         public async Task<PagingResult<DepartmentModel>> SearchAllByParentIdAsync(
             int pageIndex,
             int pageSize,
@@ -235,6 +300,9 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][12] 통계
+        /// <summary>
+        /// 지난 12개월 동안 생성된 기록의 월별 통계를 반환합니다.
+        /// </summary>
         public async Task<SortedList<int, double>> GetMonthlyCreateCountAsync()
         {
             SortedList<int, double> createCounts = new SortedList<int, double>();
@@ -265,6 +333,9 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][13] 부모 페이징
+        /// <summary>
+        /// 부모 키를 기준으로 페이지화된 부서 목록을 반환합니다.
+        /// </summary>
         public async Task<PagingResult<DepartmentModel>> GetAllByParentKeyAsync(
             int pageIndex,
             int pageSize,
@@ -284,6 +355,9 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][14] 부모 검색
+        /// <summary>
+        /// 부모 키를 기준으로 검색 쿼리가 적용된 페이지화된 부서 목록을 반환합니다.
+        /// </summary>
         public async Task<PagingResult<DepartmentModel>> SearchAllByParentKeyAsync(
             int pageIndex,
             int pageSize,
@@ -310,6 +384,9 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][15] 리스트(페이징, 검색, 정렬)
+        /// <summary>
+        /// 페이징, 검색, 정렬이 적용된 부서 목록을 반환합니다.
+        /// </summary>
         public async Task<ArticleSet<DepartmentModel, int>> GetAllAsync<TParentIdentifier>(int pageIndex, int pageSize, string searchField, string searchQuery, string sortOrder, TParentIdentifier parentIdentifier)
         {
             var items = _context.Departments.AsQueryable();
@@ -393,6 +470,9 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][16] 답변: ReplyApp
+        /// <summary>
+        /// 답변을 추가합니다. 추가된 답변은 저장되며, 그 결과가 반환됩니다.
+        /// </summary>
         public async Task<DepartmentModel> AddAsync(DepartmentModel model, int parentRef, int parentStep, int parentRefOrder)
         {
             model.CreatedAt = DateTime.UtcNow;
@@ -411,6 +491,9 @@ namespace VisualAcademy.Models.Departments
         }
 
         //[4][17] 답변: DepartmentApp
+        /// <summary>
+        /// 부서에 답변을 추가합니다. 추가된 답변은 저장되며, 그 결과가 반환됩니다.
+        /// </summary>
         public async Task<DepartmentModel> AddAsync(DepartmentModel model, int parentId)
         {
             model.CreatedAt = DateTime.UtcNow;
@@ -428,8 +511,11 @@ namespace VisualAcademy.Models.Departments
             return model;
         }
 
-        #region [4][6] 검색: GetByAsync()
-        //[4][6] 검색: GetByAsync()
+        #region [4][18] 검색: GetByAsync()
+        //[4][18] 검색: GetByAsync()
+        /// <summary>
+        /// 특정 필터 옵션에 따라 데이터를 검색하고 그 결과를 반환합니다.
+        /// </summary>
         public async Task<ArticleSet<DepartmentModel, long>> GetByAsync<TParentIdentifier>(
             FilterOptions<TParentIdentifier> options)
         {
@@ -517,12 +603,18 @@ namespace VisualAcademy.Models.Departments
 
         #region Dispose
         // https://docs.microsoft.com/ko-kr/dotnet/api/system.gc.suppressfinalize?view=net-5.0
+        /// <summary>
+        /// Dispose 메서드는 사용한 리소스를 청소하며, 이 개체를 가비지 컬렉터(GC)가 따로 자동으로 정리하지 않게 요청합니다.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Dispose 메서드는 리소스를 정리합니다. 이 메서드는 Dispose 메서드에 의해 호출됩니다.
+        /// </summary>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
