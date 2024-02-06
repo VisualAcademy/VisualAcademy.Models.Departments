@@ -13,8 +13,8 @@ namespace VisualAcademy.Models.Departments
         public static void AddDependencyInjectionContainerForDepartmentApp(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<DepartmentAppDbContext>(options => options.UseSqlServer(connectionString)
-            //.EnableSensitiveDataLogging()
-            , ServiceLifetime.Transient);
+                //.EnableSensitiveDataLogging()
+                , ServiceLifetime.Transient);
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
         }
     }

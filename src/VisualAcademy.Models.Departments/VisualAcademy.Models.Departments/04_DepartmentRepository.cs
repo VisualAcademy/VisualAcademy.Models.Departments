@@ -138,7 +138,7 @@ namespace VisualAcademy.Models.Departments
         }
         #endregion
 
-        #region [4][6] 페이징: GetAllAsync()
+        #region [4][6] 페이징: GetAllAsync
         //[4][6] 페이징: GetAllAsync()
         /// <summary>
         /// 모든 Department를 페이지 단위로 반환합니다.
@@ -159,6 +159,7 @@ namespace VisualAcademy.Models.Departments
         }
         #endregion
 
+        #region [4][7] 부모: GetAllByParentIdAsync
         //[4][7] 부모
         /// <summary>
         /// 지정된 부모 ID를 가진 Department를 페이지 단위로 반환합니다.
@@ -184,7 +185,9 @@ namespace VisualAcademy.Models.Departments
 
             return new PagingResult<DepartmentModel>(models, totalRecords);
         }
+        #endregion
 
+        #region [4][8] 상태: GetStatus
         //[4][8] 상태
         /// <summary>
         /// 지정된 부모 ID를 가진 Department의 상태를 반환합니다.
@@ -202,7 +205,9 @@ namespace VisualAcademy.Models.Departments
 
             return new Tuple<int, int>(pinnedRecords, totalRecords); // (2, 10)
         }
+        #endregion
 
+        #region [4][9] 부모 삭제: DeleteAllByParentId
         //[4][9] 부모 삭제
         /// <summary>
         /// 지정된 부모 ID를 가진 모든 Department를 삭제합니다.
@@ -232,7 +237,9 @@ namespace VisualAcademy.Models.Departments
 
             return false;
         }
+        #endregion
 
+        #region [4][10] 검색: SearchAllAsync
         //[4][10] 검색
         /// <summary>
         /// 주어진 쿼리로 Department를 검색하고, 그 결과를 페이지 단위로 반환합니다.
@@ -264,7 +271,9 @@ namespace VisualAcademy.Models.Departments
 
             return new PagingResult<DepartmentModel>(models, totalRecords);
         }
+        #endregion
 
+        #region [4][11] 부모 검색: SearchAllByParentIdAsync
         //[4][11] 부모 검색
         /// <summary>
         /// 주어진 쿼리로 지정된 부모 ID를 가진 Department를 검색하고, 그 결과를 페이지 단위로 반환합니다.
@@ -298,7 +307,9 @@ namespace VisualAcademy.Models.Departments
 
             return new PagingResult<DepartmentModel>(models, totalRecords);
         }
+        #endregion
 
+        #region [4][12] 통계: GetMonthlyCreateCountAsync
         //[4][12] 통계
         /// <summary>
         /// 지난 12개월 동안 생성된 기록의 월별 통계를 반환합니다.
@@ -331,7 +342,9 @@ namespace VisualAcademy.Models.Departments
 
             return await Task.FromResult(createCounts);
         }
+        #endregion
 
+        #region [4][13] 부모 페이징: GetAllByParentKeyAsync
         //[4][13] 부모 페이징
         /// <summary>
         /// 부모 키를 기준으로 페이지화된 부서 목록을 반환합니다.
@@ -353,7 +366,9 @@ namespace VisualAcademy.Models.Departments
 
             return new PagingResult<DepartmentModel>(models, totalRecords);
         }
+        #endregion
 
+        #region [4][14] 부모 검색: SearchAllByParentKeyAsync
         //[4][14] 부모 검색
         /// <summary>
         /// 부모 키를 기준으로 검색 쿼리가 적용된 페이지화된 부서 목록을 반환합니다.
@@ -382,7 +397,9 @@ namespace VisualAcademy.Models.Departments
 
             return new PagingResult<DepartmentModel>(models, totalRecords);
         }
+        #endregion
 
+        #region [4][15][1] 리스트(페이징, 검색, 정렬): GetAllAsync<TParentIdentifier>()
         //[4][15] 리스트(페이징, 검색, 정렬)
         /// <summary>
         /// 페이징, 검색, 정렬이 적용된 부서 목록을 반환합니다.
@@ -457,7 +474,9 @@ namespace VisualAcademy.Models.Departments
 
             return new ArticleSet<DepartmentModel, int>(await items.AsNoTracking().ToListAsync(), totalCount);
         }
+        #endregion
 
+        #region  [4][15][2] 리스트(페이징, 검색, 정렬): GetArticlesAsync<TParentIdentifier>()
         public async Task<ArticleSet<DepartmentModel, int>> GetArticlesAsync<TParentIdentifier>(
             int pageIndex,
             int pageSize,
@@ -468,8 +487,10 @@ namespace VisualAcademy.Models.Departments
         {
             return await GetAllAsync(pageIndex, pageSize, searchField, searchQuery, sortOrder, parentIdentifier);
         }
+        #endregion
 
-        //[4][16] 답변: ReplyApp
+        #region [4][16] 답변: AddAsync(ReplyAsync)
+        //[4][16] 답변: AddAsync(ReplyAsync)
         /// <summary>
         /// 답변을 추가합니다. 추가된 답변은 저장되며, 그 결과가 반환됩니다.
         /// </summary>
@@ -489,8 +510,10 @@ namespace VisualAcademy.Models.Departments
 
             return model;
         }
+        #endregion
 
-        //[4][17] 답변: DepartmentApp
+        #region [4][17] 답변: AddAsync(ReplyAsync)
+        //[4][17]  답변: AddAsync(ReplyAsync)
         /// <summary>
         /// 부서에 답변을 추가합니다. 추가된 답변은 저장되며, 그 결과가 반환됩니다.
         /// </summary>
@@ -509,7 +532,8 @@ namespace VisualAcademy.Models.Departments
             }
 
             return model;
-        }
+        } 
+        #endregion
 
         #region [4][18] 검색: GetByAsync()
         //[4][18] 검색: GetByAsync()
