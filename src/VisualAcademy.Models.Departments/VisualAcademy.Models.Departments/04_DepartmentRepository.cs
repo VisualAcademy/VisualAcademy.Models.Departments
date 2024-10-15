@@ -625,6 +625,13 @@ namespace VisualAcademy.Models.Departments
         }
         #endregion
 
+        #region [4][19] GetAllAsync
+        public Task<ArticleSet<DepartmentModel, int>> GetAllAsync<TParentIdentifier>(int pageIndex, int pageSize, string searchField, string searchQuery, string sortOrder, TParentIdentifier parentIdentifier, DateTime from, DateTime to)
+        {
+            throw new NotImplementedException();
+        } 
+        #endregion
+
         #region Dispose
         // https://docs.microsoft.com/ko-kr/dotnet/api/system.gc.suppressfinalize?view=net-5.0
         /// <summary>
@@ -648,11 +655,6 @@ namespace VisualAcademy.Models.Departments
                     _context.Dispose(); //_context = null;
                 }
             }
-        }
-
-        public Task<ArticleSet<DepartmentModel, int>> GetAllAsync<TParentIdentifier>(int pageIndex, int pageSize, string searchField, string searchQuery, string sortOrder, TParentIdentifier parentIdentifier, DateTime from, DateTime to)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }
